@@ -32,6 +32,11 @@ func main() {
 		}
 		defer rsp.Body.Close()
 
+		if rsp.StatusCode != 200 {
+			http.Error(w, "unexpected error", 500)
+			return
+		}
+
 		result := map[string]interface{}{}
 
 		b, err := ioutil.ReadAll(rsp.Body)
