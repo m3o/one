@@ -25,7 +25,7 @@ func main() {
 		id := parts[2]
 
 		// call the backend for the url
-		rsp, err := http.Get("https://api.m3o.com/url/proxy?id=" + id)
+		rsp, err := http.Get("https://api.m3o.com/url/proxy?shortURL=" + id)
 		if err != nil {
 			http.Error(w, err.Error(), 500)
 			return
@@ -51,7 +51,7 @@ func main() {
 		}
 
 		// get the destination url
-		url, _ := result["url"].(string)
+		url, _ := result["destinationURL"].(string)
 		if len(url) == 0 {
 			return
 		}
