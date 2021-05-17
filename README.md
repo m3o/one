@@ -10,6 +10,6 @@ as a single entrypoint at https://m3o.one. We don't serve directly because of ti
 ## Usage
 
 - Assumes url is of format `https://m3o.one/u/AArfeZE`
-- Will call `https://api.m3o.com/url/proxy?id=AArfeZE`
-- URL service should return `url=https://foobar.com/example`
+- Will call `https://api.m3o.com/url/proxy?shortURL=AArfeZE`
+- URL service should return `destinationURL=https://foobar.com/example`
 - Proxy will issue a 301 redirect
