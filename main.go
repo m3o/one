@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -22,10 +23,16 @@ func main() {
 		}
 
 		// get the url id
-		id := parts[2]
+		//id := parts[2]
+
+		uri := url.URL{
+			Scheme: r.URL.Scheme,
+			Host:   r.URL.Host,
+			Path:   r.URL.Path,
+		}
 
 		// call the backend for the url
-		rsp, err := http.Get("https://api.m3o.com/url/proxy?shortURL=" + id)
+		rsp, err := http.Get("https://api.m3o.com/url/proxy?shortURL=" + uri.String())
 		if err != nil {
 			http.Error(w, err.Error(), 500)
 			return
