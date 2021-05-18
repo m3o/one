@@ -1,3 +1,7 @@
+github.com/felixge/httpsnoop v1.0.1 h1:lvB5Jl89CsZtGIWuTcDM1E/vkVs49/Ml7JJe07l8SPQ=
+github.com/felixge/httpsnoop v1.0.1/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
+github.com/gorilla/handlers v1.5.1 h1:9lRY6j8DEeeBT10CvO9hGW0gmky0BprnvDI5vfhUHH4=
+github.com/gorilla/handlers v1.5.1/go.mod h1:t8XrUpc4KVXb7HGyJ4/cEnwQiaxrX/hz1Zv/4g96P1Q=
 github.com/micro/services/url/proxy v0.0.0-20210518134714-7dbc9323d6e0 h1:c8VLOJx07Zu/aMz44qIfXmVq3Bupy5r4xWjea1/vUFQ=
 github.com/micro/services/url/proxy v0.0.0-20210518134714-7dbc9323d6e0/go.mod h1:svlvfotBe5PgueWZw1TAz1LkpOFy/NFz5JOg6yo41tM=
 github.com/micro/services/url/proxy v0.0.0-20210518160925-bb892b5f01b1 h1:c6DIvPlZXVp4af/ttJnNy2LK/2EekYFU/u8VrL7pA4Q=
