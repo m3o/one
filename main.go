@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// logging handler
-	handler := handlers.LoggingHandler(os.Stdout, http.HandlerFunc(proxy.Handler))
+	handler := handlers.CombinedLoggingHandler(os.Stdout, http.HandlerFunc(proxy.Handler))
 	// register the proxy handler
 	http.Handle("/", handler)
 	// run on port 8080
