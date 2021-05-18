@@ -27,3 +27,5 @@ Deploy the url service
 ```
 micro run github.com/micro/services/url
 ```
+
+Deploy this proxy to DO on domain m3o.one
