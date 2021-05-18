@@ -8,3 +8,5 @@ github.com/micro/services/url/proxy v0.0.0-20210518160925-bb892b5f01b1 h1:c6DIvP
 github.com/micro/services/url/proxy v0.0.0-20210518160925-bb892b5f01b1/go.mod h1:svlvfotBe5PgueWZw1TAz1LkpOFy/NFz5JOg6yo41tM=
 github.com/micro/services/url/proxy v0.0.0-20210518164314-c878ddc97605 h1:OlofPayMVy+w005SKEp3LbQoKQCufxRRPgzqDdET84I=
 github.com/micro/services/url/proxy v0.0.0-20210518164314-c878ddc97605/go.mod h1:svlvfotBe5PgueWZw1TAz1LkpOFy/NFz5JOg6yo41tM=
+github.com/micro/services/url/proxy v0.0.0-20210518165420-7c5ec79fdfcf h1:Nagrhu6CuHIlAhxPVhqMqwIqYG1oeeQt+SSTyP4s/Bc=
+github.com/micro/services/url/proxy v0.0.0-20210518165420-7c5ec79fdfcf/go.mod h1:svlvfotBe5PgueWZw1TAz1LkpOFy/NFz5JOg6yo41tM=
