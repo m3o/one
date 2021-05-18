@@ -1,6 +1,6 @@
-# URL Proxy
+# One URL
 
-The URL proxy provides the single entrypoint for m3o.one
+The One URL proxy provides the single entrypoint for m3o.one
 
 ## Overview
 
