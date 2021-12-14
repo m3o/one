@@ -105,6 +105,9 @@ func appProxy(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	r.Host = uri.Host
+	r.Header.Set("Host", r.Host)
+
 	httputil.NewSingleHostReverseProxy(uri).ServeHTTP(w, r)
 }
 
