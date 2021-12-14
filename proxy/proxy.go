@@ -214,8 +214,6 @@ func urlProxy(w http.ResponseWriter, r *http.Request) {
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-
 	// m3o.one
 	if strings.HasSuffix(r.Host, URLHost) {
 		urlProxy(w, r)
