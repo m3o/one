@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/gorilla/handlers"
-	"github.com/micro/services/url/proxy"
+	"github.com/m3o/one/proxy"
 )
 
 func main() {
