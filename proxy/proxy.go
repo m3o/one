@@ -26,17 +26,19 @@ var (
 )
 
 func appProxy(w http.ResponseWriter, r *http.Request) {
-	hostname := r.URL.Hostname()
-	subdomain := strings.TrimSuffix(hostname, "."+AppHost)
+	subdomain := strings.TrimSuffix(r.Host, "."+AppHost)
 
 	// only process one part for now
 	parts := strings.Split(subdomain, ".")
 	if len(parts) > 1 {
+		log.Print("[app/proxy] more parts than expected", parts)
 		return
 	}
 
 	// currently service id is the subdomain
 	id := subdomain
+
+	log.Printf("[app/proxy] resolving host %s to id %s\n", r.Host, id)
 
 	apiURL := APIHost + "/app/resolve"
 
@@ -85,6 +87,7 @@ func appProxy(w http.ResponseWriter, r *http.Request) {
 	result := map[string]interface{}{}
 
 	if err := json.Unmarshal(b, &result); err != nil {
+		log.Print("[app/proxy] failed to unmarshal response")
 		http.Error(w, err.Error(), 500)
 		return
 	}
@@ -92,10 +95,15 @@ func appProxy(w http.ResponseWriter, r *http.Request) {
 	// get the destination url
 	u, _ := result["url"].(string)
 	if len(u) == 0 {
+		log.Print("[app/proxy] no response url")
 		return
 	}
 
-	uri, _ := url.Parse(u)
+	uri, err := url.Parse(u)
+	if err != nil {
+		log.Print("[app/proxy] failed to parse url", err.Error())
+		return
+	}
 
 	httputil.NewSingleHostReverseProxy(uri).ServeHTTP(w, r)
 }
@@ -200,17 +208,14 @@ func urlProxy(w http.ResponseWriter, r *http.Request) {
 func Handler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
-	// check the URL
-	hostname := r.URL.Hostname()
-
 	// m3o.one
-	if strings.HasSuffix(hostname, URLHost) {
+	if strings.HasSuffix(r.Host, URLHost) {
 		urlProxy(w, r)
 		return
 	}
 
 	// m3o.app
-	if strings.HasSuffix(hostname, AppHost) {
+	if strings.HasSuffix(r.Host, AppHost) {
 		appProxy(w, r)
 		return
 	}
