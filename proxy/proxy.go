@@ -9,6 +9,8 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"sync"
+	"time"
 )
 
 var (
@@ -25,9 +27,34 @@ var (
 	AppHost = "m3o.app"
 )
 
+var (
+	mtx sync.RWMutex
+
+	// local cache
+	appMap = map[string]*backend{}
+)
+
+type backend struct {
+	url     *url.URL
+	created time.Time
+}
+
 func appProxy(w http.ResponseWriter, r *http.Request) {
 	// no subdomain
 	if r.Host == AppHost {
+		return
+	}
+
+	// lookup the app map
+	mtx.RLock()
+	bk, ok := appMap[r.Host]
+	mtx.RUnlock()
+
+	// check the url map
+	if ok && time.Since(bk.created) < time.Minute {
+		r.Host = bk.url.Host
+		r.Header.Set("Host", r.Host)
+		httputil.NewSingleHostReverseProxy(bk.url).ServeHTTP(w, r)
 		return
 	}
 
@@ -109,6 +136,13 @@ func appProxy(w http.ResponseWriter, r *http.Request) {
 		log.Print("[app/proxy] failed to parse url", err.Error())
 		return
 	}
+
+	mtx.Lock()
+	appMap[r.Host] = &backend{
+		url:     uri,
+		created: time.Now(),
+	}
+	mtx.Unlock()
 
 	r.Host = uri.Host
 	r.Header.Set("Host", r.Host)
