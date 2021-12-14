@@ -28,7 +28,7 @@ Set the host prefix
 
 ```
 micro config set micro.url.host_prefix https://m3o.one/u/
-micro config set micro.app.custom_domain m3o.app
+micro config set micro.app.domain m3o.app
 ```
 
 Deploy the url, app services
