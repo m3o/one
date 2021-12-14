@@ -26,6 +26,11 @@ var (
 )
 
 func appProxy(w http.ResponseWriter, r *http.Request) {
+	// no subdomain
+	if r.Host == AppHost {
+		return
+	}
+
 	subdomain := strings.TrimSuffix(r.Host, "."+AppHost)
 
 	// only process one part for now
