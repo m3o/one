@@ -10,6 +10,11 @@ The M3O One proxy is a single URL proxy for a variety of our custom domains incl
 
 Apps are given a unique id and subdomain using m3o.app e.g helloworld.m3o.app resolves to the app id helloworld.
 
+## Functions
+
+Functions are given a unique id and subdomain much like apps using m3o.sh e.g helloworld.m3o.sh resolves to the 
+function helloworld. It provides basic http proxying.
+
 ## URL
 
 The [url](https://github.com/micro/services) service provides link shortening and sharing. The URL Proxy fronts those urls 
