@@ -4,7 +4,7 @@ One proxy to rule them all
 
 ## Overview
 
-The M3O One proxy is a single proxy for a variety of our custom domains including m3o.one (short urls) and m3o.app (app urls).
+The M3O One proxy is a single URL proxy for a variety of our custom domains including m3o.one (short urls) and m3o.app (app urls).
 
 ## Apps
 
