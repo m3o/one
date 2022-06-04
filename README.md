@@ -4,11 +4,16 @@ One proxy to rule them all
 
 ## Overview
 
-The M3O One proxy is a single proxy for a variety of our custom domains including m3o.one (short urls) and m3o.app (app urls).
+The M3O One proxy is a single URL proxy for a variety of our custom domains including m3o.one (short urls) and m3o.app (app urls).
 
 ## Apps
 
 Apps are given a unique id and subdomain using m3o.app e.g helloworld.m3o.app resolves to the app id helloworld.
+
+## Functions
+
+Functions are given a unique id and subdomain much like apps using m3o.sh e.g helloworld.m3o.sh resolves to the 
+function helloworld. It provides basic http proxying.
 
 ## URL
 
