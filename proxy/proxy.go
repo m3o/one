@@ -1,7 +1,9 @@
 package proxy
 
 import (
+	"bytes"
 	"encoding/json"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -28,6 +30,9 @@ var (
 
 	// host to proxy for Functions
 	FunctionHost = "m3o.sh"
+
+	// host for user auth
+	UserHost = "user.m3o.com"
 )
 
 var (
@@ -365,6 +370,68 @@ func urlProxy(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, url, 301)
 }
 
+func userProxy(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+
+	// can't operate without the api key
+	if len(APIKey) == 0 {
+		return
+	}
+
+	token := r.Form.Get("token")
+	if len(token) == 0 {
+		log.Print("Missing token")
+		return
+	}
+
+	redirectUrl := r.Form.Get("redirectUrl")
+	if len(redirectUrl) == 0 {
+		log.Print("Missing redirect url")
+		return
+	}
+
+	// check access and redirect
+	uri := APIHost + "/v1/user/VerifyEmail"
+
+	b, _ := json.Marshal(map[string]interface{}{
+		"token": token,
+	})
+
+	req, err := http.NewRequest("POST", uri, bytes.NewReader(b))
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	req.Header.Set("Authorization", "Bearer "+APIKey)
+
+	rsp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+	defer rsp.Body.Close()
+
+	// discard the body
+	io.Copy(ioutil.Discard, rsp.Body)
+
+	if rsp.StatusCode == 200 {
+		http.Redirect(w, r, redirectUrl, 302)
+		return
+	}
+
+	// non 200 status code
+
+	// redirect to failure url
+	failureUrl := r.Form.Get("failureRedirectUrl")
+	if len(failureUrl) == 0 {
+		return
+	}
+
+	// redirect
+	http.Redirect(w, r, failureUrl, 302)
+}
+
 func Handler(w http.ResponseWriter, r *http.Request) {
 	// m3o.one
 	if strings.HasSuffix(r.Host, URLHost) {
@@ -381,6 +448,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	// m3o.sh
 	if strings.HasSuffix(r.Host, FunctionHost) {
 		functionProxy(w, r)
+		return
+	}
+
+	if r.Host == UserHost {
+		userProxy(w, r)
 		return
 	}
 }
