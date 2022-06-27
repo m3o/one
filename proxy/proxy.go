@@ -22,6 +22,9 @@ var (
 	// API Url
 	APIHost = "https://api.m3o.com"
 
+	// dot com host
+	ComHost = "m3o.com"
+
 	// host to proxy for URLs
 	URLHost = "m3o.one"
 
@@ -185,6 +188,7 @@ func appProxy(w http.ResponseWriter, r *http.Request) {
 	}
 
 	subdomain := strings.TrimSuffix(r.Host, "."+AppHost)
+	subdomain = strings.TrimSuffix(subdomain, "."+ComHost)
 
 	// only process one part for now
 	parts := strings.Split(subdomain, ".")
