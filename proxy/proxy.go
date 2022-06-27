@@ -31,6 +31,9 @@ var (
 	// host to proxy for Functions
 	FunctionHost = "m3o.sh"
 
+	// community host
+	CommunityHost = "community.m3o.com"
+
 	// host for user auth
 	UserHost = "user.m3o.com"
 )
@@ -453,6 +456,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	if r.Host == UserHost {
 		userProxy(w, r)
+		return
+	}
+
+	if r.Host == CommunityHost {
+		appProxy(w, r)
 		return
 	}
 }
