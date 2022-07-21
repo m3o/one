@@ -316,11 +316,11 @@ func urlProxy(w http.ResponseWriter, r *http.Request) {
 		uri.Scheme = "https"
 	}
 
-	apiURL := APIHost + "/url/proxy"
+	apiURL := APIHost + "/url/resolve"
 
 	// use /v1/
 	if len(APIKey) > 0 {
-		apiURL = APIHost + "/v1/url/proxy"
+		apiURL = APIHost + "/v1/url/resolve"
 	}
 
 	// make new request
