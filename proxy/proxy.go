@@ -374,7 +374,7 @@ func urlProxy(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// return the redirect url to caller
-	http.Redirect(w, r, url, 301)
+	http.Redirect(w, r, url, 302)
 }
 
 func userProxy(w http.ResponseWriter, r *http.Request) {
